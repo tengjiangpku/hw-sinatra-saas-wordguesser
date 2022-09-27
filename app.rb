@@ -43,6 +43,7 @@ class WordGuesserApp < Sinatra::Base
     # invalid
     if letter.nil? and not letter.match(/^[a-zA-Z]$/)
       flash[:message] = "Invalid guess."
+    # repeated
     elsif @game.guesses.include?(letter) or @game.wrong_guesses.include?(letter)
       flash[:message] = "You have already used that letter."
     else
