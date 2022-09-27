@@ -41,7 +41,7 @@ class WordGuesserApp < Sinatra::Base
     letter = params[:guess].to_s[0]
     ### YOUR CODE HERE ###
     # invalid
-    if letter.nil? and not letter.match(/^[a-zA-Z]$/)
+    if letter.nil? or not letter.match(/^[a-zA-Z]$/)
       flash[:message] = "Invalid guess."
     # repeated
     elsif @game.guesses.include?(letter) or @game.wrong_guesses.include?(letter)
