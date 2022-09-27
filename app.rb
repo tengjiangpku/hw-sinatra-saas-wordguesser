@@ -47,6 +47,7 @@ class WordGuesserApp < Sinatra::Base
       flash[:message] = "You have already used that letter."
     else
       @game.guess(letter)
+    end
     redirect '/show'
   end
   
