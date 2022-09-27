@@ -49,7 +49,14 @@ class WordGuesserGame
   end
 
   def check_win_or_lose
-    if @guesses.size == @word.size && @guesses.delete(@word.downcase).empty?
+    flag = true
+    @word.each_char do |i|
+      if not guesses.include?(i)
+        flag = false
+        break
+      end
+    end
+    if flag == true
       :win
     elsif @attempt_num >= 7
       :lose
