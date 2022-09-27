@@ -19,7 +19,6 @@ class WordGuesserGame
     s = s.downcase
     if @word.downcase.include?(s)
       if not @guesses.include?(s)
-        @attempt_num += 1
         @guesses += s
         true
       else
