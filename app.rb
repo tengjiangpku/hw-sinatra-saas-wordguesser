@@ -40,6 +40,13 @@ class WordGuesserApp < Sinatra::Base
   post '/guess' do
     letter = params[:guess].to_s[0]
     ### YOUR CODE HERE ###
+    # invalid
+    if letter.nil? and not letter.match(/^[a-zA-Z]$/)
+      flash[:message] = "Invalid guess."
+    elsif @game.guesses.include?(letter) or @game.wrong_guesses.include?(letter)
+      flash[:message] = "You have already used that letter."
+    else
+      @game.guess(letter)
     redirect '/show'
   end
   
@@ -50,17 +57,37 @@ class WordGuesserApp < Sinatra::Base
   # wrong_guesses and word_with_guesses from @game.
   get '/show' do
     ### YOUR CODE HERE ###
-    erb :show # You may change/remove this line
+    status = @game.check_win_or_lose
+    if status == :win
+      redirect '/win'
+    elsif status == :lose
+      redirect '/lose'
+    elsif status == :play
+      erb :show # You may change/remove this line
+    end
   end
   
   get '/win' do
     ### YOUR CODE HERE ###
-    erb :win # You may change/remove this line
+    status = @game.check_win_or_lose
+    if status == :win
+      erb :win # You may change/remove this line
+    elsif status == :lose
+      redirect '/lose'
+    elsif status == :play
+      redirect '/show'
+    end
   end
   
   get '/lose' do
     ### YOUR CODE HERE ###
-    erb :lose # You may change/remove this line
+    status = @game.check_win_or_lose
+    if status == :win
+      redirect '/win'
+    elsif status == :lose
+      erb :lose # You may change/remove this line
+    elsif status == :play
+      redirect '/show'
+    end
   end
-  
 end
