@@ -51,7 +51,7 @@ class WordGuesserGame
   def check_win_or_lose
     flag = true
     @word.each_char do |i|
-      if not guesses.include?(i)
+      if not @guesses.include?(i)
         flag = false
         break
       end
